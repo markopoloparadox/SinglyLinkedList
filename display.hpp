@@ -1,16 +1,18 @@
-#pragma once
-#include "node.hpp"
-#include <iomanip>
-#include <iostream>
-#include <vector>
+#pragma one
 #include "hack.hpp"
-#include "InsertText.hpp"
 
-namespace list2
+namespace display
 {
     constexpr int NodeWidht = 16;
     constexpr int WindowSize = 80;
     constexpr int NodeToNodeDistance = 3;
+    constexpr int FullNodeWidth = NodeWidht + NodeToNodeDistance;
+
+
+    inline int GetNextNodePos(const int c)
+    {
+        return c + FullNodeWidth;
+    }
 
     template<class T>
     void ShowNode(Node<T>* node, int r, int c, hack::Color color = hack::Color::Default)
@@ -208,149 +210,5 @@ namespace list2
                 howManyOnLeft -= 1;
             }
         }
-    };
-
-    template<class T>
-    bool IsEmpty(Node<T>* glava)
-    {
-        hack::ClearDisplayArea();
-        hack::ClearTextArea();
-
-        int r = 0;
-        int c = 0;
-        ShowNodeAndN(glava, glava, r, c);
-        text::IsEmpty(0);
-        hack::getch();
-
-        //ShowArrow(r, c + NodeWidht + NodeToNodeDistance);
-        text::IsEmpty(1);
-        hack::getch();
-
-        if(glava->next == nullptr)
-        {
-            ShowPipe(r+5, c + NodeWidht, hack::Color::Green);
-            text::IsEmpty(2);
-            hack::getch();
-        }
-        else {
-            ShowPipe(r+5, c + NodeWidht, hack::Color::Red);
-            text::IsEmpty(3);
-            hack::getch();
-        }
-        return glava->next == nullptr;
-    };
-
-    template<class T>
-    void InsertBeg(Node<T>* glava, T val)
-    {
-        hack::ClearDisplayArea();
-        hack::ClearTextArea();
-
-        int r = 0;
-        int c = 0;
-
-        ShowNodeAndN(glava, glava, r, 0);
-        text::InsertBeg(0);
-        hack::getch();
-        hack::ClearDisplayArea();
-
-        ShowNode(glava, r, c, hack::Color::Cyan);
-        if(glava->next) {
-            ShowNodeAndN(glava, glava->next, r, c + (NodeToNodeDistance * 2) + (NodeWidht * 2), -1, 0);
-            DrawPipe(r, c, c + (NodeToNodeDistance * 2) + (NodeWidht * 2));
-        }
-        text::InsertBeg(1);
-        hack::getch();
-
-        auto node = new Node<T>(val);
-        ShowNode(node, r, c + (NodeToNodeDistance + NodeWidht), hack::Color::Green);
-        text::InsertBeg(2);
-        hack::getch();
-
-        node->next = glava->next;
-        ShowNode(node, r, c + (NodeToNodeDistance + NodeWidht));
-        if(glava->next) {
-            ShowPipe(r+5, c + (NodeToNodeDistance * 1) + (NodeWidht * 2), hack::Color::Green);
-            DrawPipe(r, c, c + (NodeToNodeDistance * 2) + (NodeWidht * 2), hack::Color::Green);
-        }
-        text::InsertBeg(3);
-        hack::getch();
-
-        glava->next = node;
-        hack::ClearDisplayArea();
-        ShowNodeAndN(glava, glava, r, 0);
-        ShowPipe(r+5, c + NodeWidht, hack::Color::Green);
-        text::InsertBeg(4);
-        hack::getch();
-    };
-
-    template<class T>
-    void InsertEnd(Node<T>* glava, T val)
-    {
-        hack::ClearDisplayArea();
-        hack::ClearTextArea();
-
-        int r = 0;
-        int c = 0;
-        ShowNodeAndN(glava, glava, r, c);
-        text::InsertEnd(0);
-        hack::getch();
-        hack::ClearDisplayArea();
-
-
-        bool isNotDone = glava->next;
-        auto currentNode = glava;
-        ShowNodeAndN(glava, currentNode, r, c);
-        //ShowArrow(r, c + NodeWidht + NodeToNodeDistance);
-        text::InsertEnd(1);
-        hack::getch();
-
-
-        while(currentNode->next)
-        {
-            ShowPipe(r+5, c + NodeWidht, hack::Color::Green);
-            text::InsertEnd(2);
-            hack::getch();
-            hack::ClearDisplayArea();
-
-            if((c + NodeWidht + NodeToNodeDistance) < (WindowSize - NodeWidht - NodeWidht- NodeToNodeDistance)) {
-                c += NodeWidht + NodeToNodeDistance;
-            }
-            else {
-                c = NodeWidht + NodeToNodeDistance;
-            }
-
-            currentNode = currentNode->next;
-            ShowNodeAndN(glava, currentNode, r, c);
-            ShowNode(currentNode, r, c, hack::Color::Green);
-            text::InsertEnd(3);
-            hack::getch();
-            ShowNode(currentNode, r, c);
-        }
-        hack::ClearDisplayArea();
-
-        ShowNodeAndN(glava, currentNode, r, c);
-        //DrawEmptyBox(r, c + NodeToNodeDistance + NodeWidht, hack::Color::Black);
-        //ShowPipe(r + 5, c + NodeWidht, hack::Color::Black);
-        //ShowArrow(r, c + NodeWidht + NodeToNodeDistance, hack::Color::Red);
-        ShowPipe(r+5, c + NodeWidht, hack::Color::Red);
-        text::InsertEnd(4);
-        hack::getch();
-        hack::ClearDisplayArea();
-
-
-        // Create a new node
-        auto newNode = new Node<T>(val);
-        ShowNodeAndN(glava, currentNode, r, c);
-        ShowNode(newNode, r, c + NodeToNodeDistance + NodeWidht, hack::Color::Green);
-        text::InsertEnd(5);
-        hack::getch();
-
-        currentNode->next = newNode;
-        // Link the new node to the last element 
-        ShowPipe(r + 5, c + NodeWidht, hack::Color::Green);
-        ShowNode(newNode, r, c + NodeToNodeDistance + NodeWidht);
-        text::InsertEnd(6);
-        hack::getch();
     };
 }

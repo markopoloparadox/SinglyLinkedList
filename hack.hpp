@@ -63,20 +63,24 @@ namespace hack
         case Color::Default:
             system("tput sgr0");
             break;
-        case Color::Green:
-            system("tput setaf 2");
-            break;
         case Color::Black:
             system("tput setaf 0");
-            break;
-        case Color::Cyan:
-            system("tput setaf 6");
             break;
         case Color::Red:
             system("tput setaf 1");
             break;
+        case Color::Green:
+            system("tput setaf 2");
+            break;
+        case Color::Cyan:
+            system("tput setaf 6");
+            break;
         }
     }
+
+    constexpr auto DisplayAreaStart = 0;
+    constexpr auto TextAreaStart = 16;
+    constexpr auto TerminalEnd = TextAreaStart + 6;
 
     inline void WriteText(std::string text, int r, int c, Color color = Color::Default)
     {
@@ -86,9 +90,6 @@ namespace hack
         std::cout << text;
         SetColor(Color::Default);
     }
-
-    constexpr auto DisplayAreaStart = 0;
-    constexpr auto TextAreaStart = 16;
 
     inline void ClearDisplayArea()
     {
@@ -112,10 +113,11 @@ namespace hack
         }
     }
 
-    inline void WriteToTextArea(std::string text, Color color = Color::Default)
+    inline void WriteToTextArea(std::string text, int c = 0, Color color = Color::Default)
     {
+        c += TextAreaStart;
         SetColor(color);
-        std::string t = "tput cup " + std::to_string(TextAreaStart) + " " + std::to_string(0);
+        std::string t = "tput cup " + std::to_string(c) + " " + std::to_string(0);
         system(t.c_str());
         std::cout << text;
         SetColor(Color::Default);

@@ -2,99 +2,117 @@
 
 #include "node.hpp"
 
-namespace list
+// Singly Linked List
+namespace sll
 {
     template<class T>
-    bool IsEmpty(Node<T>* glava)
+    bool Empty(Node<T>* head)
     {
-        return glava->next == nullptr;
+        return head->next == nullptr;
     };
 
     template<class T>
-    Node<T>* FindNodeWithVal(Node<T>* glava, T val)
+    Node<T>* Find(Node<T>* node, T val)
     {
-        glava = glava->next;
-        while(glava !=  nullptr) 
+        node = node->next;
+        while(node != nullptr) 
         {
-            if(glava->val == val){
-                return glava;
+            if(node->val == val) {
+                return node;
             }
-            glava = glava->next;
+            node = node->next;
         }
         return nullptr;
     };
 
 
     template<class T>
-    bool RemoveNode(Node<T>* glava, Node<T>* node)
+    bool Erase(Node<T>* head, Node<T>* node)
     {
-        if(IsEmpty(glava)) return false;
-        while(glava->next !=  nullptr) 
+        if(Empty(head)) return false;
+        
+        while(head->next !=  nullptr) 
         {
-            if(glava->next == node){
-                glava->next = node->next;
+            if(head->next == node) {
+                head->next = node->next;
                 delete node;
                 return true;
             }
-            glava = glava->next;
+            head = head->next;
         }
         return false;
     };
 
 
     template<class T>
-    void InsertEnd(Node<T>* cvor, T val)
+    void Push_back(Node<T>* head, T val)
     {
-        while(cvor->next != nullptr) {
-            cvor = cvor->next;
+        while(head->next != nullptr) {
+            head = head->next;
         }
-        auto noviCvor = new Node<T>(val);
-        cvor->next = noviCvor;
+        auto node = new Node<T>(val);
+        head->next = node;
     };
 
     template<class T>
-    void RemoveEnd(Node<T>* glava)
+    void Pop_back(Node<T>* head)
     {
-        if(IsEmpty(glava)) return;
+        if(IsEmpty(head)) return;
 
-        while(glava->next->next != nullptr) {
-            glava = glava->next;
+        while(head->next->next != nullptr) {
+            head = head->next;
         }
-        delete (glava->next);
-        glava->next = nullptr;
+        delete (head->next);
+        head->next = nullptr;
     };
 
     template<class T>
-    void InsertBeg(Node<T>* glava, T val)
+    void Push_front(Node<T>* head, T val)
     {
-        auto noviCvor = new Node<T>(val);
-        noviCvor->next = glava->next;
-        glava->next = noviCvor;
+        auto node = new Node<T>(val);
+        node->next = head->next;
+        head->next = node;
     };
 
 
     template<class T>
-    bool RemoveBeg(Node<T>* glava)
+    bool Pop_front(Node<T>* head)
     {
-        if(IsEmpty(glava)) return false;
-        auto cvor = glava->next;
-        glava->next = cvor->next;
-        delete (cvor);
+        if(Empty(head)) return false;
+
+        auto node = head->next;
+        head->next = node->next;
+        delete (node);
         return true;
     };
 
     template<class T>
-    void DeleteList(Node<T>* glava)
+    T* Front(Node<T>* head)
     {
-        while(RemoveBeg(glava));
+        return head->next;
     };
 
     template<class T>
-    int Size(Node<T>* glava)
+    T* Back(Node<T>* head)
+    {
+        while(head->next) {
+            head = head->next;
+        }
+        return head;
+    };
+
+    template<class T>
+    void DeleteList(Node<T>* head)
+    {
+        while(RemoveBeg(head));
+    };
+
+    template<class T>
+    int Size(Node<T>* head)
     {
         int i = 0;
-        while(glava->next != nullptr) {
-            glava = glava->next;
+        while(head->next != nullptr) {
+            head = head->next;
             i += 1;
         }
         return i;
