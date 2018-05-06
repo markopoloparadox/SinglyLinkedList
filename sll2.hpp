@@ -86,6 +86,79 @@ namespace sll2
     };
 
     template<class T>
+    bool Pop_front(Node<T>* head)
+    {
+        hack::ClearDisplayArea();
+        hack::ClearTextArea();
+
+        int r = 0;
+        int c = 0;
+
+        display::ShowNodeAndN(head, head, r, 0);
+        text::Pop_front(0);
+        hack::getch();
+
+
+        text::Pop_front(1);
+        hack::getch();
+        hack::ClearDisplayArea();
+
+        auto status = sll2::Empty(head);
+
+        if(status == true) {
+            display::ShowPipe(r+5, c + display::NodeWidht, hack::Color::Red);
+            text::Pop_front(2);
+            hack::getch();
+            return false;
+        }
+
+        display::ShowPipe(r+5, c + display::NodeWidht, hack::Color::Green);
+        text::Pop_front(3);
+        hack::getch();
+        hack::ClearDisplayArea();
+
+        auto node = head->next;
+        text::Pop_front(4);
+        display::ShowNodeAndN(head, head, r, 0);
+        display::ShowNode(head->next, r, c + display::FullNodeWidth, hack::Color::Green);
+        hack::getch();
+        hack::ClearDisplayArea();
+
+
+        head->next = node->next;
+        display::ShowNode(head, r, c, hack::Color::Cyan);
+        display::ShowNode(node, r, c + display::FullNodeWidth);
+        if(head->next != nullptr) {
+            display::ShowNodeAndN(head, head->next, r , c + display::FullNodeWidth + display::FullNodeWidth, -1, 0);
+            display::ShowPipe(r+5, c + display::NodeWidht + display::FullNodeWidth, hack::Color::Green);
+            display::DrawPipe(r, c, c + (display::FullNodeWidth * 2), hack::Color::Green);
+        }
+        else {
+            display::ShowPipe(r+5, c + display::NodeWidht, hack::Color::Red);
+        }
+        text::Pop_front(5);
+        hack::getch();
+        hack::ClearDisplayArea();
+
+        display::ShowNode(head, r, c, hack::Color::Cyan);
+        display::ShowNode(node, r, c + display::FullNodeWidth, hack::Color::Red);
+        if(head->next != nullptr) {
+            display::ShowNodeAndN(head, head->next, r , c + display::FullNodeWidth + display::FullNodeWidth, -1, 0);
+            display::DrawPipe(r, c, c + (display::FullNodeWidth * 2));
+        }
+
+        delete (node);
+        text::Pop_front(6);
+        hack::getch();
+        hack::ClearDisplayArea();
+
+        display::ShowNodeAndN(head, head, r, 0);
+        text::Pop_front(7);  
+        hack::getch(); 
+        return true;
+    };
+
+    template<class T>
     void Push_back(Node<T>* head, T val)
     {
         hack::ClearDisplayArea();

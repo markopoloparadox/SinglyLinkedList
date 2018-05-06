@@ -134,4 +134,83 @@ namespace text
             hack::MoveCursor(hack::TextAreaStart + 2, 0);
         }
     }
+
+    constexpr auto POP_FRONT1 =     "bool Pop_front(Node<T>* head) {\n"
+                                    "\tif(Empty(head)) return false;\n"
+                                    "\n"
+                                    "\tauto node = head->next;\n"
+                                    "\thead->next = node->next;\n"
+                                    "\tdelete (node);\n"
+                                    "\treturn true;\n";
+
+    constexpr auto POP_FRONT2 =     "\tif(Empty(head)) return false;\n"
+                                    "\n"
+                                    "\tauto node = head->next;\n"
+                                    "\thead->next = node->next;\n"
+                                    "\tdelete (node);\n"
+                                    "\treturn true;\n"
+                                    "}; //Pop_Front\n";
+
+
+    inline void Pop_front(int pos = 0)
+    {
+        hack::ClearTextArea();
+        system("tabs -2");
+        hack::WriteToTextArea(POP_FRONT1);
+        if (pos == 0)
+        {
+            hack::WriteToTextArea("bool Pop_front(Node<T>* head) {\t<--\n");
+            hack::MoveCursor(hack::TextAreaStart, 0);
+        }
+        else if (pos == 1)
+        {
+            hack::WriteToTextArea("bool Pop_front(Node<T>* head) {\n", 0, hack::Color::Green);
+            hack::WriteToTextArea("\tif(Empty(head)) return false;\t<--\n", 1);
+            hack::MoveCursor(hack::TextAreaStart + 1, 0);
+        }
+        else if (pos == 2)
+        {
+            hack::ClearTextArea();
+            hack::WriteToTextArea(POP_FRONT2);
+            hack::WriteToTextArea("\tif(Empty(head)) return false;\n", 0, hack::Color::Red);
+            hack::WriteToTextArea("}; //Pop_Front\t<--\n", 6);
+            hack::MoveCursor(hack::TextAreaStart + 6, 0);
+        }
+        else if (pos == 3)
+        {
+            hack::WriteToTextArea("\tif(Empty(head)) return false;\n", 1, hack::Color::Green);
+            hack::WriteToTextArea("\tauto node = head->next;\t<--\n", 3);
+            hack::MoveCursor(hack::TextAreaStart + 3, 0);
+        }
+        else if (pos == 4)
+        {
+            hack::WriteToTextArea("\tauto node = head->next;\n", 3, hack::Color::Green);
+            hack::WriteToTextArea("\thead->next = node->next;\t<--\n", 4);
+            hack::MoveCursor(hack::TextAreaStart + 4, 0);
+        }
+        else if (pos == 5)
+        {
+            hack::ClearTextArea();
+            hack::WriteToTextArea(POP_FRONT2);
+            hack::WriteToTextArea("\thead->next = node->next;\n", 3, hack::Color::Green);
+            hack::WriteToTextArea("\tdelete (node);\t<--\n", 4);
+            hack::MoveCursor(hack::TextAreaStart + 4, 0);
+        }
+        else if (pos == 6)
+        {
+            hack::ClearTextArea();
+            hack::WriteToTextArea(POP_FRONT2);
+            hack::WriteToTextArea("\tdelete (node);\n", 4, hack::Color::Red);
+            hack::WriteToTextArea("\treturn true;\t<--\n", 5);
+            hack::MoveCursor(hack::TextAreaStart + 5, 0);
+        }
+        else if (pos == 7)
+        {
+            hack::ClearTextArea();
+            hack::WriteToTextArea(POP_FRONT2);
+            hack::WriteToTextArea("\treturn true;\n", 5, hack::Color::Green);
+            hack::WriteToTextArea("}; //Pop_Front\t<--\n", 6);
+            hack::MoveCursor(hack::TextAreaStart + 6, 0);
+        }
+    }
 }
