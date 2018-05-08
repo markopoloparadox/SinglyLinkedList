@@ -4,9 +4,19 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
+#include <vector>
 
 namespace hack
 {
+    namespace color
+    {
+        constexpr auto RED_FG = "\e[38;2;255;0;0m";
+        constexpr auto GREEN_FG = "\e[38;2;0;255;0m";
+        constexpr auto BLUE_FG = "\e[38;2;0;0;255m";
+        constexpr auto GRAY_BG = "\e[48;2;83;83;32m";
+        constexpr auto RESET = "\e[0m";
+    }
+
     enum class Color
     {
         Default = 0,
@@ -80,7 +90,8 @@ namespace hack
 
     constexpr auto DisplayAreaStart = 0;
     constexpr auto TextAreaStart = 16;
-    constexpr auto TerminalEnd = TextAreaStart + 6;
+    constexpr auto TextAreaSize = 7;
+    constexpr auto TerminalEnd = TextAreaStart + TextAreaSize;
 
     inline void WriteText(std::string text, int r, int c, Color color = Color::Default)
     {
@@ -107,7 +118,7 @@ namespace hack
         std::string t = "tput cup " + std::to_string(TextAreaStart) + " " + std::to_string(0);
         system(t.c_str());
 
-        for(int i = 0; i < 7; ++i)
+        for(int i = 0; i < TextAreaSize; ++i)
         {
             std::cout << std::setfill(' ') << std::setw(80) << " " << "\n";
         }
@@ -121,5 +132,43 @@ namespace hack
         system(t.c_str());
         std::cout << text;
         SetColor(Color::Default);
+    }
+
+    static auto TEXT_POS = 0;
+
+    // IN: text
+    // IN: nio - next instruction position
+    inline void WriteToTextArea(std::vector<std::string>& text, const int nip = 0)
+    {
+        ClearTextArea();
+        MoveCursor(TextAreaStart, 0);
+        int j = 0;
+        if(text.size() <= 7) {
+            for(auto& elem : text) {
+                std::cout << std::setw(3) << j << " " << elem << "\n";
+                j += 1;
+            }
+            MoveCursor(TextAreaStart + nip, 0);
+            return;
+        }
+
+        if(nip <= 3) {
+            for(int i = 0; i < TextAreaSize; ++i) {
+                std::cout << std::setw(3) << i << " " << text[i] << "\n";
+            }
+            MoveCursor(TextAreaStart + nip, 0);
+        }
+        else if(text.size() - 1 - nip <= 3) {
+            for(int i = text.size() - TextAreaSize; i < text.size(); ++i) {
+                std::cout << std::setw(3) << i << " "  << text[i] << "\n";
+            }
+            MoveCursor(TextAreaStart + (TextAreaSize - (text.size() - 1 - nip) - 1), 0);
+        }
+        else {
+            for(int i = nip - 3; i <= nip + 3; ++i) {
+                std::cout << std::setw(3) << i << " " << text[i] << "\n";
+            }
+            MoveCursor(TextAreaStart + 3, 0);
+        }
     }
 }

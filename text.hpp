@@ -3,214 +3,204 @@
 
 namespace text
 {
-    constexpr auto PUSH_BACK =  "void Push_back(Node<T>* head, T val) {\n"
-                                "\twhile(head->next != nullptr) {\n"
-                                "\t\thead = head->next\n"
-                                "\t}\n"
-                                "\tauto node = new Node<T>(val);\n"
-                                "\thead->next = node;\n"
-                                "}; //Push_back\n";
-
     inline void Push_back(int pos = 0)
     {
-        hack::ClearTextArea();
-        system("tabs -2");
-        hack::WriteToTextArea(PUSH_BACK);
+        std::vector<std::string> text = 
+        {
+            "void Push_back(Node<T>* head, T val) {",
+            "\twhile(head->next != nullptr) {",
+            "\t\thead = head->next",
+            "\t}",
+            "\tauto node = new Node<T>(val);",
+            "\thead->next = node;",
+            "}; //Push_back",
+        };
+        int nip = 0;
         if (pos == 0)
         {
-            hack::WriteToTextArea("void Push_back(Node<T>* head, T val) {\t<--\n");
-            hack::MoveCursor(hack::TextAreaStart, 0);
+            text[0] = hack::color::GRAY_BG + text[0] + hack::color::RESET;
+            nip = 0;
         }
         else if (pos == 1)
         {
-            hack::WriteToTextArea("void Push_back(Node<T>* head, T val) {\n", 0, hack::Color::Green);
-            hack::WriteToTextArea("\twhile(head->next != nullptr) {\t<--\n", 1);
-            hack::MoveCursor(hack::TextAreaStart + 1, 0);
+
+            text[1] = hack::color::GRAY_BG + text[1] + hack::color::RESET;
+            nip = 1;
         }
         else if (pos == 2)
         {
-            hack::WriteToTextArea("\twhile(head->next != nullptr) {\n", 1, hack::Color::Green);
-            hack::WriteToTextArea("\t\thead = head->next\t<--\n", 2);
-            hack::MoveCursor(hack::TextAreaStart + 2, 0);
+            text[1] = hack::color::GREEN_FG + text[1]+ hack::color::RESET;
+            text[2] = hack::color::GRAY_BG + text[2] + hack::color::RESET;
+            nip = 2;
         }
         else if (pos == 3)
         {
-            hack::WriteToTextArea("\twhile(head->next != nullptr) {\t<--\n", 1);
-            hack::WriteToTextArea("\t\thead = head->next\n", 2, hack::Color::Green);
-            hack::MoveCursor(hack::TextAreaStart + 1, 0);
+            text[2] = hack::color::GREEN_FG + text[2]+ hack::color::RESET;
+            text[1] = hack::color::GRAY_BG + text[1] + hack::color::RESET;
+            nip = 1;
         }
         else if (pos == 4)
         {
-            hack::WriteToTextArea("\twhile(head->next != nullptr) {\n", 1, hack::Color::Red);
-            hack::WriteToTextArea("\tauto node = new Node<T>(val);\t<--\n", 4);
-            hack::MoveCursor(hack::TextAreaStart + 4, 0);
+            text[1] = hack::color::GREEN_FG + text[1]+ hack::color::RESET;
+            text[4] = hack::color::GRAY_BG + text[4] + hack::color::RESET;
+            nip = 4;
         }
         else if (pos == 5)
         {
-            hack::WriteToTextArea("\tauto node = new Node<T>(val);\n", 4, hack::Color::Green);
-            hack::WriteToTextArea("\thead->next = node;\t<--\n", 5);
-            hack::MoveCursor(hack::TextAreaStart + 5, 0);
+            text[4] = hack::color::GREEN_FG + text[4]+ hack::color::RESET;
+            text[5] = hack::color::GRAY_BG + text[5] + hack::color::RESET;
+            nip = 5;
         }
         else if (pos == 6)
         {
-            hack::WriteToTextArea("\thead->next = node;\n", 5, hack::Color::Green);
-            hack::WriteToTextArea("}; //Push_back\t<--\n", 6);
-            hack::MoveCursor(hack::TextAreaStart + 6, 0);
-        }
-    }
 
-    constexpr auto PUSH_FRONT = "void Push_front(Node<T>* head, T val) {\n"
-                                "\tauto node = new Node<T>(val);\n"
-                                "\tnode->next = head->next;\n"
-                                "\thead->next = node;\n"
-                                "}; //Push_front\n";
+            text[5] = hack::color::GREEN_FG + text[5]+ hack::color::RESET;
+            text[6] = hack::color::GRAY_BG + text[6] + hack::color::RESET;
+            nip = 6;
+        }
+
+        hack::WriteToTextArea(text, nip);
+    }
 
     inline void Push_front(int pos = 0)
     {
-        hack::ClearTextArea();
-        system("tabs -2");
-        hack::WriteToTextArea(PUSH_FRONT);
+        std::vector<std::string> text = 
+        {
+            "void Push_front(Node<T>* head, T val) {",
+            "\tauto node = new Node<T>(val);",
+            "\tnode->next = head->next;",
+            "\thead->next = node;",
+            "}; //Push_front\n"
+        };
+        int nip = 0;
         if (pos == 0)
         {
-            hack::WriteToTextArea("void Push_front(Node<T>* head, T val) {\t<--\n");
-            hack::MoveCursor(hack::TextAreaStart, 0);
+            text[0] = hack::color::GRAY_BG + text[0] + hack::color::RESET;
+            nip = 0;
         }
         else if (pos == 1)
         {
-            hack::WriteToTextArea("void Push_front(Node<T>* head, T val) {\n", 0, hack::Color::Green);
-            hack::WriteToTextArea("\tauto node = new Node<T>(val);\t<--\n", 1);
-            hack::MoveCursor(hack::TextAreaStart + 1, 0);
+            text[1] = hack::color::GRAY_BG + text[1] + hack::color::RESET;
+            nip = 1;
         }
         else if (pos == 2)
         {
-            hack::WriteToTextArea("\tauto node = new Node<T>(val);\n", 1, hack::Color::Green);
-            hack::WriteToTextArea("\tnode->next = head->next;\t<--\n", 2);
-            hack::MoveCursor(hack::TextAreaStart + 2, 0);
+            text[1] = hack::color::GREEN_FG + text[1]+ hack::color::RESET;
+            text[2] = hack::color::GRAY_BG + text[2] + hack::color::RESET;
+            nip = 2;
         }
         else if (pos == 3)
         {
-            hack::WriteToTextArea("\tnode->next = head->next;\n", 2,  hack::Color::Green);
-            hack::WriteToTextArea("\thead->next = node;\t<--\n", 3);
-            hack::MoveCursor(hack::TextAreaStart + 3, 0);
+            text[3] = hack::color::GRAY_BG + text[3] + hack::color::RESET;
+            nip = 3;
         }
         else if (pos == 4)
         {
-            hack::WriteToTextArea("\thead->next = node;\n", 3, hack::Color::Green);
-            hack::WriteToTextArea("}; //Push_front\t<--\n", 4);
-            hack::MoveCursor(hack::TextAreaStart + 4, 0);
+            text[3] = hack::color::GREEN_FG + text[3]+ hack::color::RESET;
+            text[4] = hack::color::GRAY_BG + text[4] + hack::color::RESET;
+            nip = 4;
         }
-    }
 
-    constexpr auto EMPTY =  "bool Empty(Node<T>* head) {\n"
-                            "\treturn head->next == nullptr;\n"
-                            "}; //Empty\n";
+        hack::WriteToTextArea(text, nip);
+    }
     
     inline void Empty(int pos = 0)
     {
-        hack::ClearTextArea();
-        system("tabs -2");
-        hack::WriteToTextArea(EMPTY);
+        std::vector<std::string> text = 
+        {
+            "bool Empty(Node<T>* head) {",
+            "\treturn head->next == nullptr;",
+            "}; //Empty"
+        };
+        int nip = 0;
         if (pos == 0)
         {
-            hack::WriteToTextArea("bool Empty(Node<T>* head) {\t<--\n");
-            hack::MoveCursor(hack::TextAreaStart, 0);
+            text[0] = hack::color::GRAY_BG + text[0] + hack::color::RESET;
+            nip = 0;
         }
         else if (pos == 1)
         {
-            hack::WriteToTextArea("bool Empty(Node<T>* head) {\n", 0, hack::Color::Green);
-            hack::WriteToTextArea("\treturn head->next == nullptr;\t<--\n", 1);
-            hack::MoveCursor(hack::TextAreaStart + 1, 0);
+            text[1] = hack::color::GRAY_BG + text[1] + hack::color::RESET;
+            nip = 1;
         }
         else if (pos == 2)
         {
-            hack::WriteToTextArea("\treturn head->next == nullptr;\n", 1, hack::Color::Green);
-            hack::WriteToTextArea("}; //Empty\t<--\n", 2);
-            hack::MoveCursor(hack::TextAreaStart + 2, 0);
+            text[1] = hack::color::GREEN_FG + text[1] + hack::color::RESET;
+            text[2] = hack::color::GRAY_BG + text[2] + hack::color::RESET;
+            nip = 2;
         }
         else if (pos == 3)
         {
-            hack::WriteToTextArea("\treturn head->next == nullptr;\n", 1, hack::Color::Red);
-            hack::WriteToTextArea("}; //Empty\t<--\n", 2);
-            hack::MoveCursor(hack::TextAreaStart + 2, 0);
+            text[1] = hack::color::RED_FG + text[1] + hack::color::RESET;
+            text[2] = hack::color::GRAY_BG + text[2] + hack::color::RESET;
+            nip = 2;
         }
+
+        hack::WriteToTextArea(text, nip);
     }
-
-    constexpr auto POP_FRONT1 =     "bool Pop_front(Node<T>* head) {\n"
-                                    "\tif(Empty(head)) return false;\n"
-                                    "\n"
-                                    "\tauto node = head->next;\n"
-                                    "\thead->next = node->next;\n"
-                                    "\tdelete (node);\n"
-                                    "\treturn true;\n";
-
-    constexpr auto POP_FRONT2 =     "\tif(Empty(head)) return false;\n"
-                                    "\n"
-                                    "\tauto node = head->next;\n"
-                                    "\thead->next = node->next;\n"
-                                    "\tdelete (node);\n"
-                                    "\treturn true;\n"
-                                    "}; //Pop_Front\n";
 
 
     inline void Pop_front(int pos = 0)
     {
-        hack::ClearTextArea();
-        system("tabs -2");
-        hack::WriteToTextArea(POP_FRONT1);
+        std::vector<std::string> text = 
+        {
+            "bool Pop_front(Node<T>* head) {",
+            "\tif(Empty(head)) return false;",
+            "",
+            "\tauto node = head->next;",
+            "\thead->next = node->next;",
+            "\tdelete (node);",
+            "\treturn true;",
+            "}; //Pop_Front"
+        };
+        int nip = 0;
         if (pos == 0)
         {
-            hack::WriteToTextArea("bool Pop_front(Node<T>* head) {\t<--\n");
-            hack::MoveCursor(hack::TextAreaStart, 0);
+            text[0] = hack::color::GRAY_BG + text[0] + hack::color::RESET;
+            nip = 0;
         }
         else if (pos == 1)
         {
-            hack::WriteToTextArea("bool Pop_front(Node<T>* head) {\n", 0, hack::Color::Green);
-            hack::WriteToTextArea("\tif(Empty(head)) return false;\t<--\n", 1);
-            hack::MoveCursor(hack::TextAreaStart + 1, 0);
+            text[1] = hack::color::GRAY_BG + text[1] + hack::color::RESET;
+            nip = 1;
         }
         else if (pos == 2)
         {
-            hack::ClearTextArea();
-            hack::WriteToTextArea(POP_FRONT2);
-            hack::WriteToTextArea("\tif(Empty(head)) return false;\n", 0, hack::Color::Red);
-            hack::WriteToTextArea("}; //Pop_Front\t<--\n", 6);
-            hack::MoveCursor(hack::TextAreaStart + 6, 0);
+            text[1] = hack::color::RED_FG + text[1] + hack::color::RESET;
+            text[7] = hack::color::GRAY_BG + text[7] + hack::color::RESET;
+            nip = 7;
         }
         else if (pos == 3)
         {
-            hack::WriteToTextArea("\tif(Empty(head)) return false;\n", 1, hack::Color::Green);
-            hack::WriteToTextArea("\tauto node = head->next;\t<--\n", 3);
-            hack::MoveCursor(hack::TextAreaStart + 3, 0);
+            text[1] = hack::color::GREEN_FG + text[1] + hack::color::RESET;
+            text[3] = hack::color::GRAY_BG + text[3] + hack::color::RESET;
+            nip = 3;
         }
         else if (pos == 4)
         {
-            hack::WriteToTextArea("\tauto node = head->next;\n", 3, hack::Color::Green);
-            hack::WriteToTextArea("\thead->next = node->next;\t<--\n", 4);
-            hack::MoveCursor(hack::TextAreaStart + 4, 0);
+            text[3] = hack::color::GREEN_FG + text[3] + hack::color::RESET;
+            text[4] = hack::color::GRAY_BG + text[4] + hack::color::RESET;
+            nip = 4;
         }
         else if (pos == 5)
         {
-            hack::ClearTextArea();
-            hack::WriteToTextArea(POP_FRONT2);
-            hack::WriteToTextArea("\thead->next = node->next;\n", 3, hack::Color::Green);
-            hack::WriteToTextArea("\tdelete (node);\t<--\n", 4);
-            hack::MoveCursor(hack::TextAreaStart + 4, 0);
+            text[4] = hack::color::GREEN_FG + text[4] + hack::color::RESET;
+            text[5] = hack::color::GRAY_BG + text[5] + hack::color::RESET;
+            nip = 5;
         }
         else if (pos == 6)
         {
-            hack::ClearTextArea();
-            hack::WriteToTextArea(POP_FRONT2);
-            hack::WriteToTextArea("\tdelete (node);\n", 4, hack::Color::Red);
-            hack::WriteToTextArea("\treturn true;\t<--\n", 5);
-            hack::MoveCursor(hack::TextAreaStart + 5, 0);
+            text[5] = hack::color::RED_FG + text[5] + hack::color::RESET;
+            text[6] = hack::color::GRAY_BG + text[6] + hack::color::RESET;
+            nip = 6;
         }
         else if (pos == 7)
         {
-            hack::ClearTextArea();
-            hack::WriteToTextArea(POP_FRONT2);
-            hack::WriteToTextArea("\treturn true;\n", 5, hack::Color::Green);
-            hack::WriteToTextArea("}; //Pop_Front\t<--\n", 6);
-            hack::MoveCursor(hack::TextAreaStart + 6, 0);
+            text[6] = hack::color::GREEN_FG + text[6] + hack::color::RESET;
+            text[7] = hack::color::GRAY_BG + text[7] + hack::color::RESET;
+            nip = 7;
         }
+
+        hack::WriteToTextArea(text, nip);
     }
 }
